@@ -5,6 +5,7 @@ from json import loads
 from os import linesep
 from pythoncommontools.logger import logger
 from pythoncommontools.objectUtil.objectUtil import methodArgsStringRepresentation
+from pythoncommontools.jsonEncoderDecoder.complexJsonEncoderDecoder import ComplexJsonDecoder
 # contants
 IMAGE_MARKUP="image"
 REPRENSATION_INTERVAL=51.2 # we have 256 grey level and 5 gradient char. 256/5=51.2
@@ -25,7 +26,8 @@ class TestData():
         self.pattern = pattern
         # logger output
         logger.loadedLogger.output(__name__, TestData.__name__, TestData.__init__.__name__)
-    def load(self, fileName):
+    @staticmethod
+    def load(fileName):
         # logger context
         argsStr = methodArgsStringRepresentation(signature(TestData.__init__).parameters, locals())
         # logger input
@@ -34,10 +36,11 @@ class TestData():
         file = open(fileName, "rt")
         jsonTestData=file.read()
         file.close()
-        loadedDict = loads(jsonTestData)
-        self.__dict__.update(loadedDict)
+        testData=ComplexJsonDecoder.loadComplexObject(jsonTestData)
         # logger output
-        logger.loadedLogger.output(__name__, TestData.__name__, TestData.__init__.__name__)
+        logger.loadedLogger.output(__name__, TestData.__name__, TestData.__init__.__name__,testData)
+        # return
+        return testData
     # reprensentation
     def __repr__(self):
         representation=""

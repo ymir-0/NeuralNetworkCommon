@@ -33,7 +33,7 @@ setup(
     description="Neural network common tools",
     packages=modules,
     dependency_links=["http://91.121.9.53:81/pythoncommontools"], # 91.121.9.53 : yggdrasil
-    install_requires=["pythoncommontools"],
+    install_requires=["pythoncommontools","numpy"],
     classifiers=[
         'Programming Language :: Python :: 3',
     ],

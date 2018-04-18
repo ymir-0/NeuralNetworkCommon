@@ -18,14 +18,16 @@ class testPerceptron(TestCase):
         # check layers dimensions
         perceptronLayersDimension = layersNumber-1
         self.assertEqual(perceptronLayersDimension, len(perceptron.layers), "ERROR : perceptron layers number")
-        self.assertEqual(dimensions[0], len(perceptron.layers[0].weights[1]), "ERROR : first layer column dimension")
+        self.assertEqual(dimensions[0], perceptron.layers[0].weights.shape[1], "ERROR : first layer column dimension")
+        self.assertEqual(dimensions[-1], perceptron.layers[-1].weights.shape[0], "ERROR : last layer row dimension")
         for layerIndex in range(perceptronLayersDimension):
             if layerIndex < perceptronLayersDimension-1 :
                 nextLayerIndex = layerIndex+1
                 self.assertEqual(dimensions[nextLayerIndex], perceptron.layers[nextLayerIndex].weights.shape[1], "ERROR : next layer column dimensions")
                 self.assertEqual(perceptron.layers[layerIndex].weights.shape[0], perceptron.layers[nextLayerIndex].weights.shape[1], "ERROR : layers row/column dimensions")
-            for row in range(perceptron.layers[layerIndex].weights.shape[0]):
-                self.assertEqual(perceptron.layers[layerIndex].biases[row], 0, "ERROR : bias != 0")
+            rowsNumber = perceptron.layers[layerIndex].weights.shape[0]
+            self.assertEqual(perceptron.layers[layerIndex].biases, [0]*rowsNumber, "ERROR : bias != 0")
+            for row in range(rowsNumber):
                 for column in range(perceptron.layers[layerIndex].weights.shape[1]):
                     self.assertGreaterEqual(perceptron.layers[layerIndex].weights[row][column], -1, "ERROR : weight < -1")
                     self.assertLessEqual(perceptron.layers[layerIndex].weights[row][column], 1, "ERROR : weight > 1")

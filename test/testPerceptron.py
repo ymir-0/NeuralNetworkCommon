@@ -8,13 +8,19 @@ from neuralnetworkcommon.perceptron import Perceptron
 # test perceptron
 class testPerceptron(TestCase):
     # test constructor
-    def testConstructor(self):
+    @staticmethod
+    def getRandomParceptron():
         # randomize layers numbers, dimensions & comments
         layersNumber = randint(2,12)
         dimensions = [randint(2,100) for _ in range(layersNumber)]
         comments = "".join([choice(ascii_letters) for _ in range(15)])
         # construct perceptron
         perceptron = Perceptron(dimensions,comments)
+        # return
+        return perceptron, layersNumber, dimensions, comments
+    def testDefaultConstructor(self):
+        # random perceptron
+        perceptron, layersNumber, dimensions, comments = testPerceptron.getRandomParceptron()
         # check layers dimensions
         differentWeights = False
         perceptronLayersDimension = layersNumber-1
@@ -41,6 +47,15 @@ class testPerceptron(TestCase):
             pass
         # check comments
         self.assertEqual(comments, perceptron.comments, "ERROR : perceptron comment")
+    # test constructor
+    def testConstructorFromAttributes(self):
+        # random perceptron
+        initialPerceptron, _, __, ___ = testPerceptron.getRandomParceptron()
+        initialPerceptron.id = randint(0, 1000)
+        # construct from attributes
+        constructedPerceptron = Perceptron.constructFromAttributes(initialPerceptron.id,initialPerceptron.layers,initialPerceptron.comments)
+        # check construction
+        self.assertTrue(initialPerceptron==constructedPerceptron, "ERROR : perceptron not consistent with attributs")
         pass
     pass
 pass

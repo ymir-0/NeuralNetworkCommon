@@ -1,6 +1,7 @@
 # coding=utf-8
 # import
 from numpy.random import rand
+from pythoncommontools.objectUtil.objectUtil import Bean
 # layer
 class Layer():
     '''
@@ -16,12 +17,23 @@ class Layer():
         pass
     pass
 # perceptron
-class Perceptron():
+class Perceptron(Bean):
+    # constructors
     def __init__(self,dimensions,comments=None):
         # create each layer
         self.layers = [Layer(dimensions[index],dimensions[index+1]) for index in range(len(dimensions)-1)]
         # save comments
         self.comments = comments
         pass
+    @staticmethod
+    def constructFromAttributes(id,layers=None,comments=None):
+        # initialize object
+        perceptron = Perceptron([])
+        # add attributs
+        perceptron.id=id
+        perceptron.layers=layers
+        perceptron.comments=comments
+        # return
+        return perceptron
     pass
 pass

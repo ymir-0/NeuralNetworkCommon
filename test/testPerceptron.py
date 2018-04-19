@@ -9,7 +9,7 @@ from neuralnetworkcommon.perceptron import Perceptron, Layer
 class testPerceptron(TestCase):
     # test constructor
     @staticmethod
-    def getRandomParceptron():
+    def getRandomPerceptron():
         # randomize layers numbers, dimensions & comments
         layersNumber = randint(2,12)
         dimensions = [randint(2,100) for _ in range(layersNumber)]
@@ -20,7 +20,7 @@ class testPerceptron(TestCase):
         return perceptron, layersNumber, dimensions, comments
     def testDefaultConstructor(self):
         # random perceptron
-        perceptron, layersNumber, dimensions, comments = testPerceptron.getRandomParceptron()
+        perceptron, layersNumber, dimensions, comments = testPerceptron.getRandomPerceptron()
         # check layers dimensions
         differentWeights = False
         perceptronLayersDimension = layersNumber-1
@@ -50,7 +50,7 @@ class testPerceptron(TestCase):
     # test constructor
     def testPerceptronConstructorFromAttributes(self):
         # random perceptron
-        initialPerceptron, _, __, ___ = testPerceptron.getRandomParceptron()
+        initialPerceptron, _, _, _ = testPerceptron.getRandomPerceptron()
         initialPerceptron.id = randint(0, 1000)
         # construct from attributes
         constructedPerceptron = Perceptron.constructFromAttributes(initialPerceptron.id,initialPerceptron.layers,initialPerceptron.comments)

@@ -17,7 +17,7 @@ class Layer(Bean):
         self.biases = [0] * currentDimension
         pass
     @staticmethod
-    def constructFromAttributes(weights=None,biases=None):
+    def constructFromAttributes(weights,biases):
         # initialize object
         layer = Layer(0,0)
         # add attributs
@@ -36,7 +36,7 @@ class Perceptron(Bean):
         self.comments = comments
         pass
     @staticmethod
-    def constructFromAttributes(id,layers=None,comments=None):
+    def constructFromAttributes(id,layers,comments=None):
         # initialize object
         perceptron = Perceptron([])
         # add attributs

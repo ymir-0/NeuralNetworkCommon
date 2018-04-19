@@ -4,7 +4,7 @@
 from unittest import TestCase
 from random import randint, choice
 from string import ascii_letters
-from neuralnetworkcommon.perceptron import Perceptron
+from neuralnetworkcommon.perceptron import Perceptron, Layer
 # test perceptron
 class testPerceptron(TestCase):
     # test constructor
@@ -48,7 +48,7 @@ class testPerceptron(TestCase):
         # check comments
         self.assertEqual(comments, perceptron.comments, "ERROR : perceptron comment")
     # test constructor
-    def testConstructorFromAttributes(self):
+    def testPerceptronConstructorFromAttributes(self):
         # random perceptron
         initialPerceptron, _, __, ___ = testPerceptron.getRandomParceptron()
         initialPerceptron.id = randint(0, 1000)
@@ -56,6 +56,16 @@ class testPerceptron(TestCase):
         constructedPerceptron = Perceptron.constructFromAttributes(initialPerceptron.id,initialPerceptron.layers,initialPerceptron.comments)
         # check construction
         self.assertTrue(initialPerceptron==constructedPerceptron, "ERROR : perceptron not consistent with attributs")
+        pass
+    def testLayerConstructorFromAttributes(self):
+        # random layer
+        previousDimension = randint(2,12)
+        currentDimension = randint(2,12)
+        initialLayer=Layer(previousDimension, currentDimension)
+        # construct from attributes
+        constructedLayer = Layer.constructFromAttributes(initialLayer.weights,initialLayer.biases)
+        # check construction
+        self.assertTrue(initialLayer==constructedLayer, "ERROR : layer not consistent with attributs")
         pass
     pass
 pass

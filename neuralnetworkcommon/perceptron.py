@@ -3,7 +3,8 @@
 from numpy.random import rand
 from pythoncommontools.objectUtil.objectUtil import Bean
 # layer
-class Layer():
+class Layer(Bean):
+    # constructors
     '''
     TODO : add extras parameters (uncertainties/dilatations/offsets)
     all parameters should be randomized between some given ranges
@@ -15,6 +16,15 @@ class Layer():
         # set biases to 0
         self.biases = [0] * currentDimension
         pass
+    @staticmethod
+    def constructFromAttributes(weights=None,biases=None):
+        # initialize object
+        layer = Layer(0,0)
+        # add attributs
+        layer.weights=weights
+        layer.biases=biases
+        # return
+        return layer
     pass
 # perceptron
 class Perceptron(Bean):

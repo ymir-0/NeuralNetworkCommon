@@ -15,7 +15,7 @@ class testPerceptron(TestCase):
         dimensions = [randint(2,100) for _ in range(layersNumber)]
         comments = "".join([choice(ascii_letters) for _ in range(15)])
         # construct perceptron
-        perceptron = Perceptron(dimensions,comments)
+        perceptron = Perceptron.constructRandomFromDimensions(dimensions,comments)
         # return
         return perceptron, layersNumber, dimensions, comments
     def testDefaultConstructor(self):
@@ -25,18 +25,18 @@ class testPerceptron(TestCase):
         differentWeights = False
         perceptronLayersDimension = layersNumber-1
         self.assertEqual(perceptronLayersDimension, len(perceptron.layers), "ERROR : perceptron layers number")
-        self.assertEqual(dimensions[0], perceptron.layers[0].weights.shape[1], "ERROR : first layer column dimension")
-        self.assertEqual(dimensions[-1], perceptron.layers[-1].weights.shape[0], "ERROR : last layer row dimension")
+        self.assertEqual(dimensions[0], len(perceptron.layers[0].weights[0]), "ERROR : first layer column dimension")
+        self.assertEqual(dimensions[-1], len(perceptron.layers[-1].weights), "ERROR : last layer row dimension")
         for layerIndex in range(perceptronLayersDimension):
             firstWeight = perceptron.layers[layerIndex].weights[0][0]
             if layerIndex < perceptronLayersDimension-1 :
                 nextLayerIndex = layerIndex+1
-                self.assertEqual(dimensions[nextLayerIndex], perceptron.layers[nextLayerIndex].weights.shape[1], "ERROR : next layer column dimensions")
-                self.assertEqual(perceptron.layers[layerIndex].weights.shape[0], perceptron.layers[nextLayerIndex].weights.shape[1], "ERROR : layers row/column dimensions")
-            rowsNumber = perceptron.layers[layerIndex].weights.shape[0]
+                self.assertEqual(dimensions[nextLayerIndex], len(perceptron.layers[nextLayerIndex].weights[0]), "ERROR : next layer column dimensions")
+                self.assertEqual(len(perceptron.layers[layerIndex].weights), len(perceptron.layers[nextLayerIndex].weights[0]), "ERROR : layers row/column dimensions")
+            rowsNumber = len(perceptron.layers[layerIndex].weights)
             self.assertEqual(perceptron.layers[layerIndex].biases, [0]*rowsNumber, "ERROR : bias != 0")
             for row in range(rowsNumber):
-                for column in range(perceptron.layers[layerIndex].weights.shape[1]):
+                for column in range(len(perceptron.layers[layerIndex].weights[0])):
                     currentWeight = perceptron.layers[layerIndex].weights[row][column]
                     self.assertGreaterEqual(currentWeight, -1, "ERROR : weight < -1")
                     self.assertLessEqual(currentWeight, 1, "ERROR : weight > 1")
@@ -61,7 +61,7 @@ class testPerceptron(TestCase):
         # random layer
         previousDimension = randint(2,12)
         currentDimension = randint(2,12)
-        initialLayer=Layer(previousDimension, currentDimension)
+        initialLayer=Layer.constructRandomFromDimensions(previousDimension, currentDimension)
         # construct from attributes
         constructedLayer = Layer.constructFromAttributes(initialLayer.weights,initialLayer.biases)
         # check construction

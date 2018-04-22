@@ -101,4 +101,33 @@ class Perceptron(Bean):
         # return
         return perceptron
     pass
+# training element
+class TrainingElement(Bean):
+    # constructors
+    # INFO : this dummy constructor is requested for complex JSON (en/de)coding
+    def __init__(self):
+        self.input = []
+        self.expectedOutput = []
+        self.comments = ""
+    @staticmethod
+    def constructFromAttributes(id,input,expectedOutput,comments=""):
+        # initialize object
+        trainingElement = TrainingElement()
+        # add attributs
+        trainingElement.id=id
+        trainingElement.input=input
+        trainingElement.expectedOutput=expectedOutput
+        trainingElement.comments=comments
+        # return
+        return trainingElement
+    # JSON marshall / unmarshall
+    def jsonMarshall(self):
+        jsonTrainingElement = dict(self.__dict__)
+        return jsonTrainingElement
+    @staticmethod
+    def jsonUnmarshall(**attributes):
+        trainingElement = TrainingElement()
+        trainingElement.__dict__.update(attributes)
+        return trainingElement
+    pass
 pass

@@ -38,6 +38,18 @@ class Layer(Bean):
         layer.biases=biases
         # return
         return layer
+    # JSON marshall / unmarshall
+    def jsonMarshall(self):
+        jsonLayer = dict(self.__dict__)
+        return jsonLayer
+    @staticmethod
+    def jsonUnmarshall(**attributes):
+        # initialize layer
+        layer = Layer()
+        # unmarshall perceptron
+        layer.__dict__.update(attributes)
+        # return
+        return layer
     pass
 # perceptron
 class Perceptron(Bean):
@@ -64,6 +76,28 @@ class Perceptron(Bean):
         perceptron.id=id
         perceptron.layers=layers
         perceptron.comments=comments
+        # return
+        return perceptron
+    # JSON marshall / unmarshall
+    def jsonMarshall(self):
+        # marshall perceptron
+        jsonPerceptron = dict(self.__dict__)
+        # marshall each layer
+        layers=list()
+        for layerIndex, layerObject in enumerate(jsonPerceptron["layers"]):
+            layers.append(layerObject.jsonMarshall())
+        jsonPerceptron["layers"] = layers
+        # return
+        return jsonPerceptron
+    @staticmethod
+    def jsonUnmarshall(**attributes):
+        # initialize perceptron
+        perceptron = Perceptron()
+        # unmarshall perceptron
+        perceptron.__dict__.update(attributes)
+        # unmarshall each layer
+        for layerIndex, jsonLayer in enumerate(perceptron.layers):
+            perceptron.layers[layerIndex] = Layer.jsonUnmarshall(**jsonLayer)
         # return
         return perceptron
     pass

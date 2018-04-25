@@ -10,13 +10,16 @@ from random import random
 class Sigmoid():
     @staticmethod
     def value(variables):
-        #value = dilatations / (1 + exp(-array(variables) * uncertainties)) + offsets
-        value = 1 / (1 + exp(-array(variables)))
+        arrayVariables = array(variables)
+        #value = dilatations / (1 + exp(-array(arrayVariables) * uncertainties)) + offsets
+        value = 1 / (1 + exp(-arrayVariables))
         return value
     @staticmethod
     # INFO : we compute the derivative from : value = sigmoïd(variables)
-    def derivativeFromValue(value, uncertainties=1, dilatations=1):
-        derivative = dilatations * uncertainties * value * (1 - value)
+    def derivative(variables):
+        arrayVariables = array(variables)
+        #derivative = dilatations * uncertainties * arrayVariables * (1 - arrayVariables)
+        derivative = variables * (1 - arrayVariables)
         return derivative
 # layer
 class Layer(Bean):

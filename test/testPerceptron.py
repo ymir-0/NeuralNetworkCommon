@@ -16,6 +16,14 @@ class testPerceptron(TestCase):
         actualValue = [float(_) for _ in actualValue]
         self.assertListEqual(expectedValue, actualValue, "ERROR : sigmoïd value does not match")
         pass
+    def testSigmoidDerivative(self):
+        # random perceptron
+        variables = [0.024861673929273992, 0.28109464441649784, 4.844212871290259e-07, 0.8458432780821669, 0.9974294986897912, 0.5396884426206188, 0.11165856728006232, 0.9982761962289739, 0.9706007225176077, 0.003034795109527507]
+        expectedValue = [0.02424357109870845, 0.20208044529686048, 4.844210524650425e-07, 0.130392427005381, 0.0025638938332229657, 0.24842482752234984, 0.09919093163302611, 0.0017208322715850963, 0.02853495996590565, 0.003025585128170695]
+        actualValue = Sigmoid.derivative(variables)
+        actualValue = [float(_) for _ in actualValue]
+        self.assertListEqual(expectedValue, actualValue, "ERROR : sigmoïd value does not match")
+        pass
     # test constructor
     @staticmethod
     def getRandomPerceptron():

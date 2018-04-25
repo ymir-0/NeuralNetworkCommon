@@ -1,5 +1,5 @@
-# coding=utf-8
 #!/usr/bin/env python3
+# coding=utf-8
 # import generic modules
 from os.path import join, dirname, isdir
 from setuptools import setup
@@ -33,7 +33,7 @@ setup(
     version=__version__,
     description="Neural network common tools",
     packages=modules,
-    dependency_links=["http://91.121.9.53:81/pythoncommontools"], # 91.121.9.53 : yggdrasil
+    dependency_links=["http://91.121.9.53:81/pythoncommontools","numpy"], # 91.121.9.53 : yggdrasil
     install_requires=["pythoncommontools"],
     classifiers=["Programming Language :: Python :: 3"]
 )

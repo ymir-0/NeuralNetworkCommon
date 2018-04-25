@@ -4,9 +4,18 @@
 from unittest import TestCase
 from random import randint, choice
 from string import ascii_letters
-from neuralnetworkcommon.perceptron import Perceptron, Layer
+from neuralnetworkcommon.perceptron import Perceptron, Layer, Sigmoid
 # test perceptron
 class testPerceptron(TestCase):
+    # test sigmoid computing
+    def testSigmoidValue(self):
+        # random perceptron
+        variables = [-4.759797336992447, 5.224268412298162, -0.8238109165048839, -4.335650860536461, -12.139774266734126, -3.9137186632355467, 2.3090778436678105, -2.6633803360485158, 4.912045083504539, -10.442216563757164]
+        expectedValue = [0.008494569592952588, 0.9946445377970348, 0.30495530742883076, 0.012924129215778584, 5.342698960038116e-06, 0.019575273408768638, 0.9096260767034267, 0.0651690933628563, 0.9926963099778543, 2.9173618362790917e-05]
+        actualValue = Sigmoid.value(variables)
+        actualValue = [float(_) for _ in actualValue]
+        self.assertListEqual(expectedValue, actualValue, "ERROR : sigmoïd value does not match")
+        pass
     # test constructor
     @staticmethod
     def getRandomPerceptron():

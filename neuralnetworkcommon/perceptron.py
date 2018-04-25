@@ -1,7 +1,23 @@
 # coding=utf-8
 # import
+from numpy import exp, array
 from pythoncommontools.objectUtil.objectUtil import Bean
 from random import random
+# sigmoid
+# TODO : create an abstract class for all future functions
+# TODO : compute with spark each method
+# TODO : add extra parameters : uncertainties, dilatation, offsets
+class Sigmoid():
+    @staticmethod
+    def value(variables):
+        #value = dilatations / (1 + exp(-array(variables) * uncertainties)) + offsets
+        value = 1 / (1 + exp(-array(variables)))
+        return value
+    @staticmethod
+    # INFO : we compute the derivative from : value = sigmoïd(variables)
+    def derivativeFromValue(value, uncertainties=1, dilatations=1):
+        derivative = dilatations * uncertainties * value * (1 - value)
+        return derivative
 # layer
 class Layer(Bean):
     # constructors

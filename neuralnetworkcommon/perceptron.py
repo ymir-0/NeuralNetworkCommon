@@ -76,6 +76,12 @@ class Layer(Bean):
         # TODO : compute with spark 'differentialError'
         differentialError = array(actualOutput) - array(expectedOutput)
         return differentialError
+    @staticmethod
+    def differentialErrorHidden(previousDifferentielError,previousLayerWeights):
+        # TODO : compute with spark 'differentialError'
+        differentialErrors = array(previousDifferentielError) * array(previousLayerWeights)
+        differentialError = sum(differentialErrors, 0)
+        return differentialError
     pass
 # perceptron
 class Perceptron(Bean):

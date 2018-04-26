@@ -70,6 +70,13 @@ class Layer(Bean):
         # return
         return layer
     pass
+    # get differential error on output layer
+    @staticmethod
+    def differentialErrorOutput(actualOutput,expectedOutput):
+        # TODO : compute with spark 'differentialError'
+        differentialError = array(actualOutput) - array(expectedOutput)
+        return differentialError
+    pass
 # perceptron
 class Perceptron(Bean):
     # constructors

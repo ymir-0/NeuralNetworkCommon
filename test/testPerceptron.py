@@ -9,7 +9,6 @@ from neuralnetworkcommon.perceptron import Perceptron, Layer, Sigmoid
 class testPerceptron(TestCase):
     # test sigmoid computing
     def testSigmoidValue(self):
-        # random perceptron
         variables = [-4.759797336992447, 5.224268412298162, -0.8238109165048839, -4.335650860536461, -12.139774266734126, -3.9137186632355467, 2.3090778436678105, -2.6633803360485158, 4.912045083504539, -10.442216563757164]
         expectedValue = [0.008494569592952588, 0.9946445377970348, 0.30495530742883076, 0.012924129215778584, 5.342698960038116e-06, 0.019575273408768638, 0.9096260767034267, 0.0651690933628563, 0.9926963099778543, 2.9173618362790917e-05]
         actualValue = Sigmoid.value(variables)
@@ -17,12 +16,20 @@ class testPerceptron(TestCase):
         self.assertListEqual(expectedValue, actualValue, "ERROR : sigmoïd value does not match")
         pass
     def testSigmoidDerivative(self):
-        # random perceptron
         variables = [0.024861673929273992, 0.28109464441649784, 4.844212871290259e-07, 0.8458432780821669, 0.9974294986897912, 0.5396884426206188, 0.11165856728006232, 0.9982761962289739, 0.9706007225176077, 0.003034795109527507]
         expectedValue = [0.02424357109870845, 0.20208044529686048, 4.844210524650425e-07, 0.130392427005381, 0.0025638938332229657, 0.24842482752234984, 0.09919093163302611, 0.0017208322715850963, 0.02853495996590565, 0.003025585128170695]
         actualValue = Sigmoid.derivative(variables)
         actualValue = [float(_) for _ in actualValue]
         self.assertListEqual(expectedValue, actualValue, "ERROR : sigmoïd value does not match")
+        pass
+    # test layer computing
+    def testDifferentialErrorOutput(self):
+        actualOutput = [0,0,1,0,0,0,0,0,0,0]
+        expectedOutput = [0.9995057415494378, 0.0005696693299897813, 6.773856462448391e-07, 0.7129941025529047, 0.008378539587771152, 0.0006705591635133233, 0.9652315201365399, 2.07564711785314e-05, 0.984934124954549, 0.0001956411273144735]
+        expectedDifferentialError = [0.9995057415494378, 0.0005696693299897813, -0.9999993226143538, 0.7129941025529047, 0.008378539587771152, 0.0006705591635133233, 0.9652315201365399, 2.07564711785314e-05, 0.984934124954549, 0.0001956411273144735]
+        actualDifferentialError = Layer.differentialErrorOutput(expectedOutput,actualOutput)
+        actualDifferentialError = [float(_) for _ in actualDifferentialError]
+        self.assertListEqual(expectedDifferentialError, actualDifferentialError, "ERROR : differential error output does not match")
         pass
     # test constructor
     @staticmethod

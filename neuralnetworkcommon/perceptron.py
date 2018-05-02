@@ -82,6 +82,18 @@ class Layer(Bean):
         differentialErrors = array(previousDifferentielError) * array(previousLayerWeights)
         differentialError = sum(differentialErrors, 0)
         return differentialError
+    def computeNewWeights(self,input,output,differentialErrorLayer):
+        differentialOutputWeightsBiasInput = Sigmoid.derivative(array([output]))
+        # INFO : new differential error on layer will be used on next computation
+        newDifferentialErrorWeightsBiases = (differentialErrorLayer * differentialOutputWeightsBiasInput).T
+        #newDifferentialErrorWeightsBiases = (array(differentialErrorLayer) * differentialOutputWeightsBiasInput).T
+        differentialErrorWeights = newDifferentialErrorWeightsBiases * array(input)
+        # TODO : optionaly correct oter metaparameters (offset, dilatation, ...)
+        # INFO : old weights will be used on next computation
+        oldWeights = self.weights
+        # TODO : parametrize learning rate (here 0.5)
+        self.weights = oldWeights - 0.5 * differentialErrorWeights
+        return newDifferentialErrorWeightsBiases, oldWeights
     pass
 # perceptron
 class Perceptron(Bean):

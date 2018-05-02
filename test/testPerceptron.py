@@ -48,6 +48,24 @@ class testPerceptron(TestCase):
         actualDifferentialError = [float(_) for _ in actualDifferentialError]
         self.assertListEqual(expectedDifferentialError, actualDifferentialError, "ERROR : differential error hidden does not match")
         pass
+    def testcomputeNewWeightsOutput(self):
+        layer = Layer()
+        layer.weights =
+        #input =
+        #output =
+        #differentialErrorLayer = #input
+        #expectedNewDifferentialErrorWeightsBiases =
+        #expectedOldWeights =
+        #expectedNewWeights =
+        #actualNewDifferentialErrorWeightsBiases, actualOldWeights = layer.computeNewWeights(input,output,differentialErrorLayer)
+        #self.assertListEqual(expectedNewDifferentialErrorWeightsBiases, actualNewDifferentialErrorWeightsBiases, "ERROR : NewDifferentialErrorWeightsBiases does not match")
+        #self.assertListEqual(expectedOldWeights, actualOldWeights, "ERROR : OldWeights does not match")
+        #self.assertListEqual(expectedNewWeights, layer.weights, "ERROR : NewWeights does not match")
+        pass
+    def testcomputeNewWeightsHidden(self):
+        input = [0.9850495139393386,0.8990937319023146,0.4894580292431677,0.04424514894552958,0.0833369232101113,0.01309118385415899,0.04260004058804179,0.734036287580626,0.0918593281080508,0.44201051512685424,0.8750156839103664,0.7623921853990762,0.8916009110719337,0.9715872191936142,0.8821322604458753]
+        output = []
+        pass
     # test constructor
     @staticmethod
     def getRandomPerceptron():

@@ -94,6 +94,9 @@ class Layer(Bean):
         # TODO : parametrize learning rate (here 0.5)
         self.weights = oldWeights - 0.5 * differentialErrorWeights
         return newDifferentialErrorWeightsBiases, oldWeights
+    def computeNewBiases(self,differentialErrorWeightsBiases):
+        # TODO : parametrize learning rate (here 0.5)
+        self.biases = array(self.biases) - 0.5 * array(differentialErrorWeightsBiases).T
     pass
 # perceptron
 class Perceptron(Bean):

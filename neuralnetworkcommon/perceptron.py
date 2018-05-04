@@ -98,7 +98,7 @@ class Layer(Bean):
     def computeNewWeights(self,differentialErrorLayer):
         differentialOutputWeightsBiasInput = Sigmoid.derivative(array([self.trainingDraft.output]))
         # INFO : new differential error on layer will be used on next computation
-        newDifferentialErrorWeightsBiases = (differentialErrorLayer * differentialOutputWeightsBiasInput).T
+        newDifferentialErrorWeightsBiases = (array(differentialErrorLayer) * differentialOutputWeightsBiasInput).T
         differentialErrorWeights = newDifferentialErrorWeightsBiases * array(self.trainingDraft.input)
         # TODO : optionaly correct oter metaparameters (offset, dilatation, ...)
         # INFO : old weights will be used on next computation

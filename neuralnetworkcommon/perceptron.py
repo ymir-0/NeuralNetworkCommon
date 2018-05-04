@@ -107,7 +107,8 @@ class Layer(Bean):
         return newDifferentialErrorWeightsBiases, oldWeights
     def computeNewBiases(self,differentialErrorWeightsBiases):
         # TODO : parametrize learning rate (here 0.5)
-        self.biases = array(self.biases) - 0.5 * array(differentialErrorWeightsBiases).T
+        newBiases = array(self.biases) - 0.5 * array(differentialErrorWeightsBiases).T
+        self.biases = newBiases[0]
     def passBackward(self,expectedOutput=None,differentialErrorWeightsBiasInput=None,previousLayerWeights=None):
         # TODO : compute with spark each parameter
         # TODO : parametrize learning rate (here 0.5)
@@ -182,5 +183,13 @@ class Perceptron(Bean):
         for layer in self.layers:
             inputOutput = layer.passForward(inputOutput)
         return inputOutput
+    def passBackward(self,expectedOutput):
+        # pass on output
+        layer = self.layers[-1]
+        differentialErrorWeightsBiasInput, previousLayerWeights = layer.passBackward(expectedOutput=expectedOutput)
+        # pass on hidden layers
+        for hiddenLayerIndex in range(2, len(self.layers)+1):
+            layer = self.layers[-hiddenLayerIndex]
+            differentialErrorWeightsBiasInput, previousLayerWeights = layer.passBackward(differentialErrorWeightsBiasInput=differentialErrorWeightsBiasInput,previousLayerWeights=previousLayerWeights)
     pass
 pass

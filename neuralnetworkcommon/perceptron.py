@@ -21,6 +21,12 @@ class Sigmoid():
         #derivative = dilatations * uncertainties * arrayVariables * (1 - arrayVariables)
         derivative = variables * (1 - arrayVariables)
         return derivative
+# training draft
+class TrainingDraft():
+    def __init__(self,input,weightsBiasInput,output):
+        self.input = input
+        self.weightsBiasInput = weightsBiasInput
+        self.output = output
 # layer
 class Layer(Bean):
     # constructors
@@ -71,12 +77,14 @@ class Layer(Bean):
         return layer
     pass
     # computation
-    def passForward(self,input):
+    def passForward(self,input,training=False):
         # compute ouput
         # TODO : compute with spark 'weightsBiasInput'
         weightsBiasInput = array(self.weights).dot(array(input)) + array(self.biases)
         output = Sigmoid.value(weightsBiasInput)
-        return output, weightsBiasInput
+        if training:
+            self.trainingDraft = TrainingDraft(input, weightsBiasInput, output)
+        return output
     @staticmethod
     def differentialErrorOutput(actualOutput,expectedOutput):
         # TODO : compute with spark 'differentialError'

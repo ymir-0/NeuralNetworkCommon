@@ -167,5 +167,13 @@ class Perceptron(Bean):
             perceptron.layers[layerIndex] = Layer.jsonUnmarshall(**jsonLayer)
         # return
         return perceptron
+    # computing
+    def passForward(self,input):
+        # TODO : add a pipe to cascade passes (only if not training)
+        # INFO : next input is actual output
+        inputOutput = input
+        for layer in self.layers:
+            inputOutput, weightsBiasInput = layer.passForward(inputOutput)
+        return inputOutput, weightsBiasInput
     pass
 pass

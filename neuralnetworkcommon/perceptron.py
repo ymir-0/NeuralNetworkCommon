@@ -70,7 +70,13 @@ class Layer(Bean):
         # return
         return layer
     pass
-    # get differential error on output layer
+    # computation
+    def passForward(self,input):
+        # compute ouput
+        # TODO : compute with spark 'weightsBiasInput'
+        weightsBiasInput = array(self.weights).dot(array(input)) + array(self.biases)
+        output = Sigmoid.value(weightsBiasInput)
+        return output, weightsBiasInput
     @staticmethod
     def differentialErrorOutput(actualOutput,expectedOutput):
         # TODO : compute with spark 'differentialError'

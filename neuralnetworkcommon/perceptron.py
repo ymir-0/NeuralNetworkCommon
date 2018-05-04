@@ -109,18 +109,20 @@ class Layer(Bean):
     def computeNewBiases(self,differentialErrorWeightsBiases):
         # TODO : parametrize learning rate (here 0.5)
         self.biases = array(self.biases) - 0.5 * array(differentialErrorWeightsBiases).T
-    def passBackward(self,actualInput,actualOutput,expectedOutput=None,differentialErrorWeightsBiasInput=None,previousLayerWeights=None):
+    def passBackward(self,expectedOutput=None,differentialErrorWeightsBiasInput=None,previousLayerWeights=None):
         # TODO : compute with spark each parameter
         # TODO : parametrize learning rate (here 0.5)
         # TODO : add inertia
         # get differential error on layer regarding output or hidden one
         if expectedOutput is not None:
-            differentialErrorLayer = self.differentialErrorOutput(actualOutput,expectedOutput)
+            differentialErrorLayer = self.differentialErrorOutput(expectedOutput)
         else:
             differentialErrorLayer = self.differentialErrorHidden(differentialErrorWeightsBiasInput,previousLayerWeights)
         # compute new weights & biases
-        newDifferentialErrorWeightsBiases, oldWeights = self.computeNewWeights(actualInput,actualOutput,differentialErrorLayer)
+        newDifferentialErrorWeightsBiases, oldWeights = self.computeNewWeights(differentialErrorLayer)
         self.computeNewBiases(newDifferentialErrorWeightsBiases)
+        # discard training draft
+        del self.trainingDraft
         # return
         return newDifferentialErrorWeightsBiases, oldWeights
     pass

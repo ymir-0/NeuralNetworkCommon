@@ -85,10 +85,9 @@ class Layer(Bean):
         if training:
             self.trainingDraft = TrainingDraft(input, weightsBiasInput, output)
         return output
-    @staticmethod
-    def differentialErrorOutput(actualOutput,expectedOutput):
+    def differentialErrorOutput(self,expectedOutput):
         # TODO : compute with spark 'differentialError'
-        differentialError = array(actualOutput) - array(expectedOutput)
+        differentialError = array(self.trainingDraft.output) - array(expectedOutput)
         return differentialError
     @staticmethod
     def differentialErrorHidden(previousDifferentielError,previousLayerWeights):
@@ -96,12 +95,11 @@ class Layer(Bean):
         differentialErrors = array(previousDifferentielError) * array(previousLayerWeights)
         differentialError = sum(differentialErrors, 0)
         return differentialError
-    def computeNewWeights(self,input,output,differentialErrorLayer):
-        differentialOutputWeightsBiasInput = Sigmoid.derivative(array([output]))
+    def computeNewWeights(self,differentialErrorLayer):
+        differentialOutputWeightsBiasInput = Sigmoid.derivative(array([self.trainingDraft.output]))
         # INFO : new differential error on layer will be used on next computation
         newDifferentialErrorWeightsBiases = (differentialErrorLayer * differentialOutputWeightsBiasInput).T
-        #newDifferentialErrorWeightsBiases = (array(differentialErrorLayer) * differentialOutputWeightsBiasInput).T
-        differentialErrorWeights = newDifferentialErrorWeightsBiases * array(input)
+        differentialErrorWeights = newDifferentialErrorWeightsBiases * array(self.trainingDraft.input)
         # TODO : optionaly correct oter metaparameters (offset, dilatation, ...)
         # INFO : old weights will be used on next computation
         oldWeights = self.weights

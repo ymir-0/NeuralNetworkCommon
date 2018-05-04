@@ -23,9 +23,8 @@ class Sigmoid():
         return derivative
 # training draft
 class TrainingDraft():
-    def __init__(self,input,weightsBiasInput,output):
+    def __init__(self,input,output):
         self.input = input
-        self.weightsBiasInput = weightsBiasInput
         self.output = output
 # layer
 class Layer(Bean):
@@ -83,7 +82,7 @@ class Layer(Bean):
         weightsBiasInput = array(self.weights).dot(array(input)) + array(self.biases)
         output = Sigmoid.value(weightsBiasInput)
         if training:
-            self.trainingDraft = TrainingDraft(input, weightsBiasInput, output)
+            self.trainingDraft = TrainingDraft(input, output)
         return output
     def differentialErrorOutput(self,expectedOutput):
         # TODO : compute with spark 'differentialError'
@@ -181,7 +180,7 @@ class Perceptron(Bean):
         # INFO : next input is actual output
         inputOutput = input
         for layer in self.layers:
-            inputOutput, weightsBiasInput = layer.passForward(inputOutput)
-        return inputOutput, weightsBiasInput
+            inputOutput = layer.passForward(inputOutput)
+        return inputOutput
     pass
 pass

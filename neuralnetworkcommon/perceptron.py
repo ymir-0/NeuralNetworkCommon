@@ -108,7 +108,9 @@ class Layer(Bean):
     def computeNewBiases(self,differentialErrorWeightsBiases):
         # TODO : parametrize learning rate (here 0.5)
         newBiases = array(self.biases) - 0.5 * array(differentialErrorWeightsBiases).T
-        self.biases = newBiases[0]
+        # INFO : sometimes, new biases are like a 1*N matrix (and not just a N ector)
+        if len(newBiases.shape)==2 and newBiases.shape[0]==1: newBiases=newBiases[0]
+        self.biases = newBiases
     def passBackward(self,expectedOutput=None,differentialErrorWeightsBiasInput=None,previousLayerWeights=None):
         # TODO : compute with spark each parameter
         # TODO : parametrize learning rate (here 0.5)

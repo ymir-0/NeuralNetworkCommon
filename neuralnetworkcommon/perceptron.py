@@ -176,12 +176,12 @@ class Perceptron(Bean):
         # return
         return perceptron
     # computing
-    def passForward(self,input):
+    def passForward(self,input,training=False):
         # TODO : add a pipe to cascade passes (only if not training)
         # INFO : next input is actual output
         inputOutput = input
         for layer in self.layers:
-            inputOutput = layer.passForward(inputOutput)
+            inputOutput = layer.passForward(inputOutput,training)
         return inputOutput
     def passBackward(self,expectedOutput):
         # pass on output
@@ -191,5 +191,15 @@ class Perceptron(Bean):
         for hiddenLayerIndex in range(2, len(self.layers)+1):
             layer = self.layers[-hiddenLayerIndex]
             differentialErrorWeightsBiasInput, previousLayerWeights = layer.passBackward(differentialErrorWeightsBiasInput=differentialErrorWeightsBiasInput,previousLayerWeights=previousLayerWeights)
+    def passForwardBackward(self,input,expectedOutput):
+        # pass forward
+        actualOutput = self.passForward(array(input),True)
+        # compute total error
+        outputError = ( ( array(expectedOutput) - array(actualOutput) ) ** 2 ) / 2
+        totalError = sum(outputError)
+        # pass backward
+        self.passBackward(expectedOutput)
+        # return
+        return totalError
     pass
 pass

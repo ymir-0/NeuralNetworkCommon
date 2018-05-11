@@ -1,9 +1,10 @@
 # coding=utf-8
 # import
+from pythoncommontools.objectUtil.objectUtil import Bean
 from random import shuffle
 from neuralnetworkcommon.utils import separateData
 # training session
-class TrainingSession():
+class TrainingSession(Bean):
     # constructors
     # INFO : this dummy constructor is requested for complex JSON (en/de)coding
     def __init__(self):
@@ -13,9 +14,10 @@ class TrainingSession():
     def constructFromTrainingSet(perceptronId,trainingSet,testRatio,comments=""):
         # initialize training set
         trainingSession = TrainingSession()
-        # add ids
+        # add ids & comments
         trainingSession.perceptronId = perceptronId
         trainingSession.trainingSessionId = trainingSet.id
+        trainingSession.comments = comments
         # split training / test sets
         dataElements = trainingSet.trainingElements
         shuffle(dataElements)

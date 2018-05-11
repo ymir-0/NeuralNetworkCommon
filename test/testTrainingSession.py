@@ -3,7 +3,7 @@
 from unittest import TestCase
 from random import randint, random
 from neuralnetworkcommon.perceptron import Perceptron
-from neuralnetworkcommon.utils import TrainingElement
+from neuralnetworkcommon.trainingElement import TrainingElement
 from neuralnetworkcommon.trainingSet import TrainingSet
 from neuralnetworkcommon.trainingSession import TrainingSession
 # import

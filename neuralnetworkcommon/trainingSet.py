@@ -1,6 +1,6 @@
 # coding=utf-8
 # import
-from neuralnetworkcommon.utils import TrainingElement, separateData
+from neuralnetworkcommon.trainingElement import TrainingElement, separateData
 from pythoncommontools.objectUtil.objectUtil import Bean
 # training set
 class TrainingSet(Bean):

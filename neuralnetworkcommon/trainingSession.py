@@ -2,7 +2,7 @@
 # import
 from pythoncommontools.objectUtil.objectUtil import Bean
 from random import shuffle
-from neuralnetworkcommon.utils import separateData
+from neuralnetworkcommon.trainingElement import separateData
 # training session
 class TrainingSession(Bean):
     # constructors
@@ -11,6 +11,7 @@ class TrainingSession(Bean):
         self.perceptronId = 0
         self.trainingSessionId = 0
     @staticmethod
+    # INFO : test ration between 0 (no data used to test, all for training) and 1 (no data used to training, all for test)
     def constructFromTrainingSet(perceptronId,trainingSet,testRatio,comments=""):
         # initialize training set
         trainingSession = TrainingSession()

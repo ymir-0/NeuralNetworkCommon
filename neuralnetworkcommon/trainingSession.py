@@ -12,12 +12,13 @@ class TrainingSession(Bean):
         self.trainingSessionId = 0
     @staticmethod
     # INFO : test ration between 0 (no data used to test, all for training) and 1 (no data used to training, all for test)
-    def constructFromTrainingSet(perceptronId,trainingSet,testRatio,comments=""):
-        # initialize training set
+    def constructFromTrainingSet(perceptronId,trainingSet,trainingChunkSize,testRatio,comments=""):
+        # initialize trivial attributs
         trainingSession = TrainingSession()
         # add ids & comments
         trainingSession.perceptronId = perceptronId
         trainingSession.trainingSessionId = trainingSet.id
+        trainingSession.trainingChunkSize = trainingChunkSize
         trainingSession.comments = comments
         # split training / test sets
         dataElements = trainingSet.trainingElements
@@ -28,12 +29,13 @@ class TrainingSession(Bean):
         # return
         return trainingSession
     @staticmethod
-    def constructFromAttributes(perceptronId,trainingSessionId,trainingSet,testSet,status,pid,meanDifferantialErrors,trainedElementsNumbers,errorElementsNumbers,comments=""):
+    def constructFromAttributes(perceptronId,trainingSessionId,trainingChunkSize,trainingSet,testSet,status,pid,meanDifferantialErrors,trainedElementsNumbers,errorElementsNumbers,comments=""):
         # initialize training set
         trainingSession = TrainingSession()
         # add attributs
         trainingSession.perceptronId = perceptronId
         trainingSession.trainingSessionId = trainingSessionId
+        trainingSession.trainingChunkSize = trainingChunkSize
         trainingSession.trainingSet = trainingSet
         trainingSession.testSet = testSet
         trainingSession.status = status
